@@ -6,6 +6,22 @@ class TestParallelize < Test::Unit::TestCase
 		num_threads = 4
 
 		m = Mutex.new
+		cnt = 0
+		threads = parallelize(num_threads) do
+			m.synchronize do
+				cnt += 1
+			end
+		end
+
+		assert_equal num_threads, threads.length
+		assert_equal num_threads, cnt
+		assert threads.all? { |t| t.is_a? Thread }
+	end
+
+	def test_parallelize_thread_idx
+		num_threads = 4
+
+		m = Mutex.new
 		max_thread_idx = 0
 		threads = parallelize(num_threads) do |thread_idx|
 			m.synchronize do
@@ -90,6 +106,25 @@ class TestParallelize < Test::Unit::TestCase
 				assert_equal NameError, ex.class
 				assert r.values.inject(0) { |sum, arr| sum + arr.length } < count
 			end
+		end
+	end
+
+	def test_peach_invalid_arity_block
+		assert_raise(ArgumentError) {
+			(0..100).peach(4) do |a, b, c|
+
+			end
+		}
+		assert_raise(ArgumentError) {
+			(0..100).peach(4)
+		}
+		assert_raise(ArgumentError) {
+			(0..100).peach(0) do |a|
+			end
+		}
+
+		# Should be ok
+		(0..100).peach(4) do
 		end
 	end
 end

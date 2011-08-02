@@ -3,6 +3,10 @@
 require 'rubygems'
 require 'parallelize'
 
+parallelize(4) do
+	puts "I'm a thread"
+end
+
 parallelize(4) do |thread_idx|
 	puts "I'm thread ##{thread_idx}" # thread_idx is zero-based
 	# ...

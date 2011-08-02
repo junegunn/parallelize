@@ -8,9 +8,11 @@ GEM
       rake
     rake (0.9.2)
     rcov (0.9.9)
+    rcov (0.9.9-java)
     yard (0.6.8)
 
 PLATFORMS
+  java
   ruby
 
 DEPENDENCIES

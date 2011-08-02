@@ -1,0 +1,6 @@
+=== 0.2.1 / 2011/08/02
+* Compatible to Ruby 1.8 
+
+=== 0.2.0 / 2011/08/02
+* Initial release
+
