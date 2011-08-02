@@ -20,7 +20,7 @@ Simple multi-threading for Ruby.
     puts "Thread ##{thread_idx} processing #{elem}"
   end
 
-== Collecting exceptions
+=== Collecting exceptions
   begin
     parallelize(4, true) do |elem, thread_idx|
       # Each thread can complete its block even when some other threads throw exceptions
