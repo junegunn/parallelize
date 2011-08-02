@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "parallelize"
   gem.homepage = "http://github.com/junegunn/parallelize"
   gem.license = "MIT"
-  gem.summary = %Q{Multi-threaded loop for Ruby}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Simple multi-threading for Ruby}
+  gem.description = %Q{Simple multi-threading for Ruby}
   gem.email = "junegunn.c@gmail.com"
   gem.authors = ["Junegunn Choi"]
   # dependencies defined in Gemfile
