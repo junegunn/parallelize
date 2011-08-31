@@ -3,41 +3,43 @@
 Simple multi-threading for Ruby.
 
 ## Installation
-  gem install parallelize
+```
+gem install parallelize
+```
 
 ## Examples
 ```ruby
-  require 'rubygems'
-  require 'parallelize'
+require 'rubygems'
+require 'parallelize'
 
-  parallelize(4) do
-    puts "I'm a thread"
+parallelize(4) do
+  puts "I'm a thread"
 
-    # ...
-  end
+  # ...
+end
 
-  # Zero-based thread index
-  parallelize(4) do |thread_idx|
-    puts "I'm thread ##{thread_idx}"
+# Zero-based thread index
+parallelize(4) do |thread_idx|
+  puts "I'm thread ##{thread_idx}"
 
-    # ...
-  end
+  # ...
+end
 
-  # Enumerable#peach
-  (0..100).peach(4) do |elem, thread_idx|
-    puts "Thread ##{thread_idx} processing #{elem}"
-  end
+# Enumerable#peach
+(0..100).peach(4) do |elem, thread_idx|
+  puts "Thread ##{thread_idx} processing #{elem}"
+end
 ```
 
 ### Collecting exceptions
 ```ruby
-  begin
-    parallelize(4, true) do |elem, thread_idx|
-      # Each thread can complete its block even when some other threads throw exceptions
-    end
-  rescue ParallelException => e
-    p e.exceptions
+begin
+  parallelize(4, true) do |elem, thread_idx|
+    # Each thread can complete its block even when some other threads throw exceptions
   end
+rescue ParallelException => e
+  p e.exceptions
+end
 ```
 
 ## Contributing to parallelize
