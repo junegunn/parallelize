@@ -29,6 +29,15 @@ end
 (0..100).peach(4) do |elem, thread_idx|
   puts "Thread ##{thread_idx} processing #{elem}"
 end
+
+# Enumerable#pmap
+(0..100).pmap(4) do |elem|
+  elem ** 2
+end
+
+(0..100).pmap(8) do |elem, thread_idx|
+  elem * thread_idx
+end
 ```
 
 ### Collecting exceptions

@@ -127,4 +127,14 @@ class TestParallelize < Test::Unit::TestCase
 		(0..100).peach(4) do
 		end
 	end
+
+  def test_pmap
+    thr = 8
+    n_per_thr = (101.0 / 8).ceil
+    i = -1
+    assert_equal(
+      (0..100).map { |e, idx| i += 1; "#{e} by #{i / n_per_thr}" },
+      (0..100).pmap(thr) { |e, tidx| "#{e} by #{tidx}" }
+    )
+  end
 end
