@@ -137,4 +137,54 @@ class TestParallelize < Test::Unit::TestCase
       (0..100).pmap(thr) { |e, tidx| "#{e} by #{tidx}" }
     )
   end
+
+  def test_reap
+    ic = 0
+    t = Thread.new {
+      begin
+        parallelize(2) do |idx|
+          begin
+            raise Exception.new if idx == 0
+            loop {}
+          rescue Interrupt
+            puts "Interrupted (#{idx}-#{ic})"
+            ic += 1
+          end
+        end
+      rescue Interrupt
+        puts "Interrupted (parallelize-#{ic})"
+        ic += 1
+      rescue Exception
+        puts "Exception thrown from a child"
+        raise
+      end
+    }
+
+    assert_raise(Exception) { t.join }
+    assert_equal 1, ic
+  end
+
+  def test_interrupt
+    ic = 0
+    t = Thread.new {
+      begin
+        parallelize(2) do |idx|
+          begin
+            loop {}
+          rescue Interrupt
+            puts "Interrupted (#{idx}-#{ic})"
+            ic += 1
+          end
+        end
+      rescue Interrupt
+        puts "Interrupted (parallelize-#{ic})"
+        ic += 1
+      end
+    }
+
+    sleep 2
+    t.raise Interrupt
+    t.join
+    assert_equal 3, ic
+  end
 end
