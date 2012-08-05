@@ -75,18 +75,18 @@ module Enumerable
     end
   end
 
-	# Divides the Enumerable objects into pieces and execute with multiple threads
-	# @return [Array] Threads.
-	# @param [Fixnum] num_threads Number of concurrent threads
-	# @param [Boolean] collect_exceptions If true, waits for all threads to complete even in case of exception, and throws ParallelException at the end. If false exception is immediately thrown.
-	def peach num_threads, collect_exceptions = false, &block
+  # Divides the Enumerable objects into pieces and execute with multiple threads
+  # @return [Array] Threads.
+  # @param [Fixnum] num_threads Number of concurrent threads
+  # @param [Boolean] collect_exceptions If true, waits for all threads to complete even in case of exception, and throws ParallelException at the end. If false exception is immediately thrown.
+  def peach num_threads, collect_exceptions = false, &block
     Parallelize.it self, num_threads, :each, collect_exceptions, &block
   end
 
   # Parallelized map.
-	# @return [Array] Map function output for each element
-	# @param [Fixnum] num_threads Number of concurrent threads
-	# @param [Boolean] collect_exceptions If true, waits for all threads to complete even in case of exception, and throws ParallelException at the end. If false exception is immediately thrown.
+  # @return [Array] Map function output for each element
+  # @param [Fixnum] num_threads Number of concurrent threads
+  # @param [Boolean] collect_exceptions If true, waits for all threads to complete even in case of exception, and throws ParallelException at the end. If false exception is immediately thrown.
   def pmap num_threads, collect_exceptions = false, &block
     Parallelize.it self, num_threads, :map, collect_exceptions, &block
   end
