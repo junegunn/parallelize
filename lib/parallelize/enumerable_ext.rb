@@ -19,8 +19,11 @@ module Enumerable
 
       begin
         prev_trap = trap('INT') { Thread.current.raise Interrupt }
-        enum.each_slice((enum.count{true} / num_threads.to_f).ceil) do |slice|
-          threads << 
+        count = enum.count{true}
+        return [] if count == 0
+
+        enum.each_slice((count / num_threads.to_f).ceil) do |slice|
+          threads <<
             case block.arity
             when 2
               Thread.new(slice, threads.length) { |my_slice, thread_idx|

@@ -128,6 +128,10 @@ class TestParallelize < Test::Unit::TestCase
 		end
 	end
 
+  def test_empty_peach
+    [].peach(4) {}
+  end
+
   def test_pmap
     thr = 8
     n_per_thr = (101.0 / 8).ceil
